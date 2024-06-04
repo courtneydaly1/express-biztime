@@ -42,7 +42,7 @@ router.post('/', async function (req, res, next){
         let {name, description} = req.body
         let code = slugify(name, {lower: true});
 
-        const res= await.query(
+        const result = await.query(
             `INSERT INTO companies (code, name, description) 
             VALUES ($1, $2, $3) RETURNING code, name, description`,
             [code, name, description]
@@ -60,7 +60,7 @@ router.put('/:code', async function (req, res, next){
         let {name, description} = req.body;
         let code = req.params.code;
 
-        const res = await db.query(` UPDATE companies SET name= $1, 
+        const reult = await db.query(` UPDATE companies SET name= $1, 
             description = $2 WHERE code = $3
             RETURNING code, name, description`,
             [name, description, code]);
@@ -81,7 +81,7 @@ router.delete('/:code', async function (req,res,next){
     try{
         let code = req.params.code;
         
-        const res= await db.query (
+        const result= await db.query (
             `DELETE FROM companies WHERE code=$1 RETURNING code`,[code]
         );
 
